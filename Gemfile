@@ -49,9 +49,6 @@ gem "cpf_cnpj"
 gem 'devise'
 gem "devise-i18n"
 gem "devise-bootstrap5"
-gem 'faker'
-gem 'rails_performance'
-gem "cpf_cnpj"
 
 gem 'faker'
 
