@@ -1,0 +1,29 @@
+<%
+begin%>
+ <h1>Novo Pagamento</h1>
+
+<%= render "form", payment: @payment %>
+
+<br>
+
+<div>
+  <%= link_to "Back to payments", payments_path %>
+</div> 
+<%end %>
+<%
+=begin%>
+ <%= form_with(model: @payment, local: true) do |form| %>
+
+  <%= form.label :person_id, "Person" %>
+  <%= form.collection_select :person_id, Person.order(:name), :id, :name, prompt: true %>
+  <br>
+  <%= form.label :amount %>
+  <%= form.text_field :amount %>
+  <br>
+  <%= form.label :paid_at %>
+  <%= form.date_field :paid_at %>
+
+  <%= form.submit %>
+<% end %> 
+<%
+=end%>
