@@ -2,10 +2,12 @@ class Person < ApplicationRecord
   belongs_to :user, optional: true
 
   has_many :debts, dependent: :destroy
+  has_many :payments, dependent: :destroy
 
   validates :name, :national_id, presence: true
   validates :national_id, uniqueness: true
   validate :cpf_or_cnpj
+  self.per_page = 50
 
   # TODO: refactor me
   #
@@ -13,13 +15,15 @@ class Person < ApplicationRecord
   # - sum payments
   # - rename to "balance"
   def total_debts
-    total = 0
+    debts.sum(:amount)
+  end
 
-    debts.each do |debt|
-      total -= debt.amount
-    end
+  def total_payments
+    payments.sum(:amount)
+  end
 
-    total
+  def total_balance
+    -total_debts + total_payments
   end
 
   private

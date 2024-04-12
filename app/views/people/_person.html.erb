@@ -3,17 +3,14 @@
     <strong>Nome:</strong>
     <%= person.name %>
   </p>
-
   <p>
     <strong>Telefone:</strong>
     <%= person.phone_number %>
   </p>
-
   <p>
     <strong>CPF / CNPJ:</strong>
     <%= person.national_id %>
   </p>
-
   <p>
     <strong>Ativo:</strong>
     <%# TODO: refactor: use a helper method %>
@@ -27,10 +24,16 @@
       </span>
     <% end %>
   </p>
-
   <p>
-    <strong>Total de Débitos</strong>
+    <strong>Débitos</strong>
     <%= person.total_debts %>
   </p>
-
+  <p>
+    <strong>Pagamentos</strong>
+    <%= person.total_payments %>
+  </p>
+  <p>
+    <strong>Saldo</strong>
+    <%= person.total_balance %>
+  </p>
 </div>
