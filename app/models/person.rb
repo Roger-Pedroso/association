@@ -7,7 +7,7 @@ class Person < ApplicationRecord
   validates :name, :national_id, presence: true
   validates :national_id, uniqueness: true
   validate :cpf_or_cnpj
-  self.per_page = 50
+  self.per_page = 20
 
   # TODO: refactor me
   #
@@ -22,8 +22,8 @@ class Person < ApplicationRecord
     payments.sum(:amount)
   end
 
-  def total_balance
-    -total_debts + total_payments
+  def update_balance!
+    update(balance: total_payments - total_debts)
   end
 
   private

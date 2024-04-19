@@ -4,14 +4,11 @@
     <%= notice %>
   </div>
 <% end %>
-
 <h1>Associados</h1>
-
 <%= link_to new_person_path, class: 'btn btn-light btn-sm' do %>
   <i class="bi bi-plus"></i>
   Novo associado
 <% end %>
-
 <ul class="nav nav-tabs my-4">
   <li class="nav-item">
     <%= link_to 'Ativo', people_path(active: true), class: "nav-link #{'active' if @active}" %>
@@ -20,9 +17,7 @@
     <%= link_to 'Inativo', people_path(active: false), class: "nav-link #{'active' unless @active}" %>
   </li>
 </ul>
-
 <%= will_paginate @people %>
-
 <table class="table table-striped">
   <thead>
     <tr>
@@ -32,7 +27,7 @@
       <th>Cadastrado em</th>
       <th>Cadastrado por</th>
       <th>Ativo</th>
-      <th>Débitos</th>
+      <th>Saldo</th>
       <th></th>
     </tr>
   </thead>
@@ -57,7 +52,7 @@
           <% end %>
         </td>
         <td class="text-end align-middle">
-          <%= person.total_debts %>
+          <%= person.balance %>
         </td>
         <td class="text-center align-middle">
           <div class="btn-group" role="group" aria-label="Actions">
@@ -73,5 +68,4 @@
     <% end %>
   </tbody>
 </table>
-
 <%= will_paginate @people %>
