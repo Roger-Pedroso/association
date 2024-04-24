@@ -1,0 +1,78 @@
+<h1>Dashboard</h1>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <table class="table">
+          <tr>
+            <td>Total de pagamentos </td>
+            <td class="text-end">R$  <%= @dashboard_data[:total_payments] %></td>
+          </tr>
+          <tr>
+            <td>Total de débitos</td>
+            <td class="text-end">R$  <%= @dashboard_data[:total_debts] %></td>
+          </tr>
+          <tr>
+            <td>Saldo</td>
+            <td class="text-end">R$  <%= @dashboard_data[:balance] %></td>
+          </tr>
+        </table>
+        <h5 class="card-title">Maior saldo</h5>
+        <table class="table">
+          <tr>
+            <td><%= @dashboard_data[:top_person]&.name %></td>
+            <td class="text-end">R$  <%= @dashboard_data[:top_person]&.balance %></td>
+          </tr>
+        </table>
+        <h5 class="card-title">Menor saldo</h5>
+        <table class="table">
+          <tr>
+            <td><%= @dashboard_data[:bottom_person]&.name %></td>
+            <td class="text-end">R$  <%= @dashboard_data[:bottom_person]&.balance %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Associados</h5>
+        <%= pie_chart @dashboard_data[:active_people_pie_chart] %>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Meus últimos cadastros</h5>
+        <ul>
+          <% @dashboard_data[:my_people].each do |person| %>
+            <li><%= person.name %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-2">
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Últimos débitos</h5>
+        <%= line_chart @dashboard_data[:last_debts] %>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Últimos pagamentos</h5>
+        <%= line_chart @dashboard_data[:last_payments] %>
+      </div>
+    </div>
+  </div>
+</div>
