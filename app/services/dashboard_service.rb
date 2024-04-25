@@ -5,6 +5,7 @@ class DashboardService
     end
   
     def dashboard_data
+      Rails.cache.fetch("#{cache_key_base}/dashboard_data", expires_in: 10.minutes) do
       Rails.logger.debug "Fetching dashboard data"
       {
         active_people_pie_chart: active_people_pie_chart,
@@ -17,14 +18,19 @@ class DashboardService
         top_person: top_person,
         bottom_person: bottom_person
       }
+      end
     end
   
     private
   
     attr_reader :user
+
+    def cache_key_base
+      "user/#{user.id}/dashboard"
+    end
   
     def active_people_pie_chart
-       {
+      {
       active: Person.where(active: true).count,
       inactive: Person.where(active: false).count
       }
