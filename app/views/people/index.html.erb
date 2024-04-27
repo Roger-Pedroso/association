@@ -41,15 +41,7 @@
         <td><%= person.user.email %></td>
         <td class="text-center align-middle">
           <%# TODO: refactor: use a helper method %>
-          <% if person.active %>
-            <span class="text-success">
-              <i class="bi bi-check-circle"></i>
-            </span>
-          <% else %>
-            <span class="text-danger">
-              <i class="bi bi-x-circle"></i>
-            </span>
-          <% end %>
+          <%= active_status(person.active) %>
         </td>
         <td class="text-end align-middle">
           <%= person.balance %>
