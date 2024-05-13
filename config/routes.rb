@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  
   resources :payments
   devise_for :users
 
@@ -18,4 +20,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "dashboard#index"
+
+  get 'reports/balance'
 end
