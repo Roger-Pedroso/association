@@ -5,7 +5,7 @@ class DashboardService
     end
   
     def dashboard_data
-      Rails.cache.fetch("#{cache_key_base}/dashboard_data", expires_in: 10.minutes) do
+      Rails.cache.fetch("#{cache_key_base}/dashboard_data", expires_in: 1.minutes) do
       Rails.logger.debug "Fetching dashboard data"
       {
         active_people_pie_chart: active_people_pie_chart,
@@ -16,7 +16,8 @@ class DashboardService
         total_debts: total_debts,
         my_people: my_people,
         top_person: top_person,
-        bottom_person: bottom_person
+        bottom_person: bottom_person,
+        last_debts_greater_than_100k: last_debts_greater_than_100k
       }
       end
     end
@@ -85,6 +86,14 @@ class DashboardService
     def bottom_person 
       people = Person.all.select { |person| person.balance > 0 }.sort_by(&:balance)
       people.first
+    end
+    # últimos débitos maiores que 100k
+    def last_debts_greater_than_100k 
+      Debt.joins(:person)
+      .where("debts.amount > ?", 100000)
+      .order(amount: :desc)
+      .limit(10)
+      .select('debts.amount, people.name')
     end
   end
   
