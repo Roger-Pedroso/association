@@ -1,4 +1,6 @@
 class Person < ApplicationRecord
+  audited
+
   belongs_to :user, optional: true
 
   has_many :debts, dependent: :destroy

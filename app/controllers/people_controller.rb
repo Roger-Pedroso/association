@@ -34,6 +34,7 @@ class PeopleController < ApplicationController
 
   # GET /people/1 or /people/1.json
   def show
+    @audits = @person.audits
   end
 
   # GET /people/new
